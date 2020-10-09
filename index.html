@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+    <title>Weather: Here and now</title>
+
+<style>
+    body {
+            text-align: center;
+            font-family: sans serif;
+            background: #0492c2;
+            color: #fff;       
+}
+
+#tekst_om_oktoberfest {
+            margin-left: 120px;
+            margin-right: 120px;
+        }
+        #korttekst {
+            margin: 50px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Kom til oktoberfest i København</h1>
+
+    <div id="result"></div>
+
+    <script>
+        const token = "201d090c9cceacfc8931df89310ebfbb"; // save your token in this variable
+
+        const aarhus = "https://api.openweathermap.org/data/2.5/weather?q=Aarhus,DK&appid=" +
+            token +
+            "&units=metric";
+
+        $(document).ready(function() {
+
+            // get the weather data
+            fetch("http://api.openweathermap.org/data/2.5/weather?q=k%C3%B8benhavn&lang=da&units=metric&appid=64206b30af59ed4c93d32d293c9ac607").then(response => {
+                return response.json();
+            }).then(data => {
+
+                // Work with JSON data here
+                console.log(data); // show what's in the json
+
+                $('#result').append(
+                    '<div class="weatherInfo">' +
+                    data.weather[0].main +
+                    ' in ' +
+                    '<h1>' + data.name + '</h1>' +
+
+                    '<figure><img src="http://openweathermap.org/img/w/' + data.weather[0].icon + '.png" alt="The weather : ' +
+                    data.weather[0].main +
+                    '"></figure>' +
+                    '</div>');
+
+
+
+
+            }).catch(err => {
+                // Do something for an error here
+                console.log('There was an error ...');
+            });
+
+        }); // document ready end
+
+    </script>
+    <div id="tekst_om_oktoberfest">
+        <p>Velkommen til Københavns Oktoberfest! Tyrolerfestival med lederhosen, øl og schlagermusik, det skal prøves, du bliver overrasket. Vi er tilbage 17.-19. september og 25.-26. september 2020 – sæt kryds i kalenderen- Femøren Amager strand – egen metro! <br><br> Der er fri entré alle dage. Øl og mad kan købes i teltet. Du kan også bestille vores tilbudspakke med: Mad, øl og pladsreservering! Så sidder I på de bedste pladser <br><br>Tyrolerfesten finder sted på Femøren, Amager strand med herlig Tyrolermusik og 1 liters øl, serveret af barmfagre øljomfruer og gutter i lederhosen. Åben torsdag fra kl. 17 til 23, fredag fra kl. 17 til 24:00 – lørdage fra kl. 14 til 24:00. Torsdag 17/9 har vi ekstra “Model servering og studenter aften”- med specielt studentertilbud. Ægte tyroler musik hele aftenen, så find dine Lederhosen og din Dirndl frem. <br><br> Kom med og oplev den fantastiske stemning!
+        </p>
+    </div>
+
+    <div id="telt_billede">
+        <img alt="billede_af_oktoberfest_gæster" src="image/telt_billede.jpg">
+    </div>
+
+    <div id="korttekst">
+        <p>Find os her</p>
+    </div>
+
+    
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
+    
+    <div id='map' style='width: 100%; height: 300px;'></div>
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1Ijoic2FyYWhueW1hbmQiLCJhIjoiY2tmcWtmbGNjMGJ1NzJ0bzA1anIzY3J4MyJ9.OyXQWRi1TdkD5qg7x5MdeQ';
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/sarahnymand/ckg2fex0n0o5f1as4jgyq8bkv', // stylesheet location
+            center: [12.646, 55.647], // starting position [lng, lat]
+            zoom: 15.00, // starting zoom
+            pitch: 45,
+            bearing: 90,
+        });
+
+    </script>
+
+</body>
+
+</html>
